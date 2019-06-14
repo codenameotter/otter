@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.27" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -15,4 +16,14 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <!-- For publish -->
+  <!--<ItemGroup>
+    <None Include="$(USERPROFILE)\.nuget\packages\system.data.sqlclient\4.6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>-->
+  <!-- For local debug -->
+  <Target Name="CopyToBin" BeforeTargets="Build">
+    <Copy SourceFiles="$(USERPROFILE)\.nuget\packages\system.data.sqlclient\4.6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
 </Project>
